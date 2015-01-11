@@ -25,31 +25,32 @@ public class QiitaClient {
 
     }
 
-    public void login(int type, BaseJsonHttpResponseHandler handler) {
+    public void login(Context context, int type, BaseJsonHttpResponseHandler handler) {
         switch (type) {
             case LOGIN_NORMAL:
-                loginNormal(handler);
+                loginNormal(context, handler);
                 break;
             case LOGIN_GITHUB:
-                loginGithub(handler);
+                loginGithub(context, handler);
                 break;
             case LOGIN_TWITTER:
-                loginTwitter(handler);
+                loginTwitter(context, handler);
                 break;
             default:
                 break;
         }
     }
 
-    private void loginGithub(BaseJsonHttpResponseHandler handler) {
+    private void loginGithub(Context context, BaseJsonHttpResponseHandler handler) {
+
 
     }
 
-    private void loginTwitter(BaseJsonHttpResponseHandler handler) {
+    private void loginTwitter(Context context, BaseJsonHttpResponseHandler handler) {
 
     }
 
-    private void loginNormal(BaseJsonHttpResponseHandler handler) {
+    private void loginNormal(Context context, BaseJsonHttpResponseHandler handler) {
 
     }
 }

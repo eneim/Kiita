@@ -86,4 +86,5 @@ public interface QiitaExcutor {
      * get user info
      */
     public void getUser(BaseJsonHttpResponseHandler handler);
+
 }

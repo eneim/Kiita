@@ -43,4 +43,13 @@ public final class Endpoints {
      * patch comment: PATCH /api/v2/comments/:id
      */
     public static final String COMMENTS = API + "/comments";
+
+    /**
+     *  login helper
+     *
+     *  login by github endpoint: GITHUB + authorizeRequest()
+     */
+    public final String GITHUB = "https://qiita.com/auth/github?do=&redirect_to=";
+
+    public final String TWITTER ="https://qiita.com/auth/twitter?do=&redirect_to=";
 }

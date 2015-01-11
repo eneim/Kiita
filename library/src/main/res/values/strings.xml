@@ -10,4 +10,7 @@
     <string name="login_github">https://qiita.com/auth/github</string>
     <string name="login_twitter">https://qiita.com/auth/twitter</string>
     <string name="giita">https://qiita.com</string>
+
+    <!-- sharedpreference names-->
+    <string name="qiita_token">im.ene.lab.library.qiita.TOKEN</string>
 </resources>

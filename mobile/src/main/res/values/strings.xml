@@ -5,4 +5,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <!-- REST API -->
+    <string name="api_callback">http://lab.ene.im/kiita/oauth?</string>
 </resources>

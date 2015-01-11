@@ -2,13 +2,20 @@ package im.ene.lab.library.qiita4j;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.BaseJsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 /**
  * Created by eneim on 1/11/15.
  */
 public class QiitaExcutorImpl implements QiitaExcutor {
 
+    private RequestParams params;
+
     private final AsyncHttpClient client = new AsyncHttpClient();
+
+    public QiitaExcutorImpl() {
+        params = new RequestParams();
+    }
 
     @Override
     public void getItems(BaseJsonHttpResponseHandler handler) {
