@@ -1,13 +1,9 @@
 package im.ene.lab.kiita;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -17,24 +13,25 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
 
-        WebView view = new WebView(this);
-        setContentView(view);
-        view.setWebViewClient(new WebViewClient() {
 
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                Log.d("callback", url + "");
-                if (url.startsWith("http://lab.ene.im/kiita/oauth")) {
-                    Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
-                }
-
-                return super.shouldOverrideUrlLoading(view, url);
-            }
-
-        });
-        view.loadUrl(test);
+//        WebView view = new WebView(this);
+//        setContentView(view);
+//        view.setWebViewClient(new WebViewClient() {
+//
+//            @Override
+//            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//                Log.d("callback", url + "");
+//                if (url.startsWith("http://lab.ene.im/kiita/oauth")) {
+//                    Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
+//                }
+//
+//                return super.shouldOverrideUrlLoading(view, url);
+//            }
+//
+//        });
+//        view.loadUrl(test);
     }
 
 

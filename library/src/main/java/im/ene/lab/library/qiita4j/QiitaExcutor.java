@@ -1,4 +1,4 @@
-package im.ene.lab.kiita.qiita4j;
+package im.ene.lab.library.qiita4j;
 
 /**
  * Created by eneim on 1/11/15.
