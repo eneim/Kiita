@@ -35,6 +35,16 @@ public interface QiitaExcutor {
     public final String CLIENT_ID = "client_id";
 
     /**
+     * param key: client_secret
+     */
+    public final String CLIENT_SECRET = "client_secret";
+
+    /**
+     * param key: code
+     */
+    public final String CODE = "code";
+
+    /**
      * param key: scope (string)
      *
      * Example: \"read_qiita write_qiita_team\"
