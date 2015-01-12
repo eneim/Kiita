@@ -10,6 +10,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
+
+import java.net.URI;
+import java.util.List;
+
 import im.ene.lab.kiita.R;
 import im.ene.lab.library.qiita4j.QiitaClient;
 
@@ -17,6 +23,10 @@ import im.ene.lab.library.qiita4j.QiitaClient;
  * Created by eneim on 1/12/15.
  */
 public class LoginActivity extends ActionBarActivity {
+
+    public static final String TAG = LoginActivity.class.getSimpleName();
+
+    public static final int LOGIN_REQUEST_CODE = 1024;
 
     private QiitaClient mClient;
 
@@ -35,7 +45,7 @@ public class LoginActivity extends ActionBarActivity {
 
             Intent intent = new Intent(LoginActivity.this, WebViewActivity.class);
             intent.putExtra("login_type", loginType);
-            startActivityForResult(intent, 1);
+            startActivityForResult(intent, LOGIN_REQUEST_CODE);
         }
     };
 
@@ -58,15 +68,33 @@ public class LoginActivity extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode != 1) {
+        if (resultCode ==  RESULT_CANCELED) {
+            update(false);
+            finish();
+        }
+
+        if (requestCode != LOGIN_REQUEST_CODE) {
             update(false);
             return;
         }
 
-        if (resultCode == Activity.RESULT_OK && data != null) {
-            String callback = data.getStringExtra("callback");
-
-            Log.d("callback", callback + "");
+        if (data != null) {
+            Bundle bundle = data.getExtras();
+            if (bundle != null) {
+                String callback = bundle.getString("callback");
+                Log.d("login:callback", callback + "");
+                try {
+                    List<NameValuePair> params = URLEncodedUtils.parse(new URI(callback), "UTF-8");
+                    if (params.size() > 0)
+                    for (NameValuePair pair : params) {
+                        if ("code".equals(pair.getName()))
+                            // TODO use this code to get access token
+                            Log.d("request:code", params.get(0).getValue() + "");
+                    }
+                } catch (Exception er) {
+                    er.printStackTrace();
+                }
+            }
         }
     }
 

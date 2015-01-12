@@ -17,11 +17,12 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (QiitaUtils.getToken(this) != null) {
+        if (QiitaUtils.getToken(this) == null) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
         } else {
+            // TODO get token to request
             Intent intent = new Intent(this, TimeLineActivity.class);
             startActivity(intent);
             finish();

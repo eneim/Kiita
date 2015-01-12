@@ -31,10 +31,15 @@ public class WebViewActivity extends ActionBarActivity {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            Log.d("callback", url + "");
+            Log.d("web:callback", url + "");
             if (url.startsWith(getString(R.string.api_callback))) {
-                Intent result = new Intent();
-                result.putExtra("callback", url);
+                Intent result = new Intent(WebViewActivity.this, LoginActivity.class);
+
+                Bundle bundle = new Bundle();
+                bundle.putString("callback", url);
+                result.putExtras(bundle);
+
+                setResult(RESULT_OK, result);
                 finishActivity();
                 return true;
             } else
