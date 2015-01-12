@@ -7,7 +7,14 @@ import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.TextHttpResponseHandler;
+
+import org.apache.http.Header;
+
 import im.ene.lab.kiita.R;
+import im.ene.lab.library.qiita4j.Endpoints;
+import im.ene.lab.library.qiita4j.QiitaClient;
 
 /**
  * Created by eneim on 1/12/15.
@@ -16,17 +23,16 @@ public class WebViewActivity extends ActionBarActivity {
 
     public static final String TAG = WebViewActivity.class.getSimpleName();
 
+    private WebView mWebView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mWebView = new WebView(this);
+        setContentView(mWebView);
 
-        WebView mainView = new WebView(this);
-        setContentView(mainView);
-
-        String test = "https://qiita.com/auth/github?do=&redirect_to=/api/v2/oauth/authorize?client_id=bfd0c62e1d881bf1eff108554cbc3cbb389bad6f&scope=read_qiita&state=299792458&target=";
-
-        mainView.setWebViewClient(mWebClient);
-        mainView.loadUrl(test);
+        mWebView.setWebViewClient(mWebClient);
+        mWebView.loadUrl(Endpoints.AUTH_ENDPOINT);
     }
 
     private WebViewClient mWebClient = new WebViewClient() {
@@ -37,9 +43,9 @@ public class WebViewActivity extends ActionBarActivity {
 
             // catch the application callback url here and return to LoginActivity
             if (url.startsWith(getString(R.string.api_callback))) {
-                // FIXME it is neccessary to initialize an Intent with Activity class?
+                // FIXME it is necessary to initialize an Intent with Activity class?
                 Intent result = new Intent(WebViewActivity.this, LoginActivity.class);
-                // setup return resutl
+                // setup return result
                 Bundle bundle = new Bundle();
                 bundle.putString("callback", url);
                 result.putExtras(bundle);

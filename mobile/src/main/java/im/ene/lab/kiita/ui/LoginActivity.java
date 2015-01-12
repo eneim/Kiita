@@ -9,14 +9,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.loopj.android.http.BaseJsonHttpResponseHandler;
+
+import org.apache.http.Header;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import im.ene.lab.kiita.R;
 import im.ene.lab.library.qiita4j.QiitaClient;
+import im.ene.lab.library.qiita4j.models.response.AccessTokenResponse;
+import im.ene.lab.library.utils.JsonUtils;
 
 /**
  * Created by eneim on 1/12/15.
@@ -28,6 +34,8 @@ public class LoginActivity extends ActionBarActivity {
     public static final int LOGIN_REQUEST_CODE = 1024;
 
     private QiitaClient mClient;
+
+    private String mCode = null, mToken = null;
 
     private Button mBtnLoginGithub, mBtnLoginTwitter;
     private View.OnClickListener onLoginClickListener = new View.OnClickListener() {
@@ -60,7 +68,7 @@ public class LoginActivity extends ActionBarActivity {
         mBtnLoginGithub.setOnClickListener(onLoginClickListener);
         mBtnLoginTwitter.setOnClickListener(onLoginClickListener);
 
-        mClient = new QiitaClient(this);
+        mClient = new QiitaClient();
     }
 
     @Override
@@ -82,15 +90,46 @@ public class LoginActivity extends ActionBarActivity {
             if (bundle != null && bundle.containsKey("callback")) {
                 String callback = bundle.getString("callback");
                 Log.d(TAG, "login:callback:" + callback);
-                List<NameValuePair> params = URLEncodedUtils.parse(new URI(callback), "UTF-8");
-                if (params.size() > 0) {
-                    for (NameValuePair pair : params) {
-                        if ("code".equals(pair.getName()))
-                            // TODO use this code to get access token
-                            Log.d(TAG, "request:code:" + pair.getValue());
+                List<NameValuePair> params = null;
+                try {
+                    params = URLEncodedUtils.parse(new URI(callback), "UTF-8");
+
+                    if (params.size() > 0) {
+                        for (NameValuePair pair : params) {
+                            if ("code".equals(pair.getName())) {
+                                // TODO use this code to get access token
+                                mCode = pair.getValue();
+                                Log.d(TAG, "request:code:" + mCode);
+                                break;
+                            }
+                        }
                     }
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
                 }
             }
+        }
+
+        if (mCode != null) {
+            mClient.requestToken(this, mCode, new BaseJsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, String rawJsonResponse, Object response) {
+                    Log.d(TAG, "response: " + rawJsonResponse);
+
+                    // handle the response here
+                    AccessTokenResponse response = JsonUtils.GSON.fromJson(rawJsonResponse, AccessTokenResponse.class);
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, String rawJsonData, Object errorResponse) {
+
+                }
+
+                @Override
+                protected Object parseResponse(String rawJsonData, boolean isFailure) throws Throwable {
+                    return null;
+                }
+            });
         }
     }
 

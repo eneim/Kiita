@@ -1,5 +1,7 @@
 package im.ene.lab.library.qiita4j;
 
+import android.util.Log;
+
 /**
  * Created by eneim on 1/11/15.
  */
@@ -49,7 +51,26 @@ public final class Endpoints {
      *
      *  login by github endpoint: GITHUB + authorizeRequest()
      */
-    public final String GITHUB = "https://qiita.com/auth/github?do=&redirect_to=";
+    public static final String GITHUB = "https://qiita.com/auth/github?do=&redirect_to=";
 
-    public final String TWITTER ="https://qiita.com/auth/twitter?do=&redirect_to=";
+    public static final String TWITTER ="https://qiita.com/auth/twitter?do=&redirect_to=";
+
+    public static final String QIITA = "https://qiita.com";
+
+    public static final String AUTH_ENDPOINT = "https://qiita.com/api/v2/oauth/authorize" +
+            "?client_id=bfd0c62e1d881bf1eff108554cbc3cbb389bad6f" +
+            "&scope=read_qiita+write_qiita" +
+            "&state=299792459";
+
+    public static String requestTokenEndpoint() {
+        String endpoint = QIITA + ACCESS_TOKEN;
+        Log.d("endpoint", endpoint + "");
+        return endpoint;
+    }
+
+    public static String authorizeEndpoint() {
+        String endpoint = QIITA + AUTHORIZE;
+        Log.d("endpoint", endpoint + "");
+        return endpoint;
+    }
 }

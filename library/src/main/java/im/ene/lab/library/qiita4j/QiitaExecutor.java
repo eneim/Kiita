@@ -1,11 +1,15 @@
 package im.ene.lab.library.qiita4j;
 
+import android.content.Context;
+
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.BaseJsonHttpResponseHandler;
+import com.loopj.android.http.TextHttpResponseHandler;
 
 /**
  * Created by eneim on 1/11/15.
  */
-public interface QiitaExcutor {
+public interface QiitaExecutor {
 
     /**
      * scope name: read_qiita
@@ -97,4 +101,7 @@ public interface QiitaExcutor {
      */
     public void getUser(BaseJsonHttpResponseHandler handler);
 
+    public void authorize(Context context, AsyncHttpResponseHandler handler);
+
+    public void requestToken(Context context, String code, BaseJsonHttpResponseHandler handler);
 }
