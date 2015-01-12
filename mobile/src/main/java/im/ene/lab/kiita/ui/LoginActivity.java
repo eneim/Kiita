@@ -1,6 +1,5 @@
 package im.ene.lab.kiita.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -68,7 +67,7 @@ public class LoginActivity extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode ==  RESULT_CANCELED) {
+        if (resultCode == RESULT_CANCELED) {
             update(false);
             finish();
         }
@@ -80,19 +79,16 @@ public class LoginActivity extends ActionBarActivity {
 
         if (data != null) {
             Bundle bundle = data.getExtras();
-            if (bundle != null) {
+            if (bundle != null && bundle.containsKey("callback")) {
                 String callback = bundle.getString("callback");
-                Log.d("login:callback", callback + "");
-                try {
-                    List<NameValuePair> params = URLEncodedUtils.parse(new URI(callback), "UTF-8");
-                    if (params.size() > 0)
+                Log.d(TAG, "login:callback:" + callback);
+                List<NameValuePair> params = URLEncodedUtils.parse(new URI(callback), "UTF-8");
+                if (params.size() > 0) {
                     for (NameValuePair pair : params) {
                         if ("code".equals(pair.getName()))
                             // TODO use this code to get access token
-                            Log.d("request:code", params.get(0).getValue() + "");
+                            Log.d(TAG, "request:code:" + pair.getValue());
                     }
-                } catch (Exception er) {
-                    er.printStackTrace();
                 }
             }
         }

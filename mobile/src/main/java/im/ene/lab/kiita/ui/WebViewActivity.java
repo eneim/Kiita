@@ -14,6 +14,8 @@ import im.ene.lab.kiita.R;
  */
 public class WebViewActivity extends ActionBarActivity {
 
+    public static final String TAG = WebViewActivity.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,10 +33,13 @@ public class WebViewActivity extends ActionBarActivity {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            Log.d("web:callback", url + "");
-            if (url.startsWith(getString(R.string.api_callback))) {
-                Intent result = new Intent(WebViewActivity.this, LoginActivity.class);
+            Log.d(TAG, "web:callback:" + url);
 
+            // catch the application callback url here and return to LoginActivity
+            if (url.startsWith(getString(R.string.api_callback))) {
+                // FIXME it is neccessary to initialize an Intent with Activity class?
+                Intent result = new Intent(WebViewActivity.this, LoginActivity.class);
+                // setup return resutl
                 Bundle bundle = new Bundle();
                 bundle.putString("callback", url);
                 result.putExtras(bundle);
