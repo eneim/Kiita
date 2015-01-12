@@ -1,19 +1,12 @@
-package im.ene.lab.kiita;
+package im.ene.lab.kiita.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
-import com.loopj.android.http.BaseJsonHttpResponseHandler;
-
-import org.apache.http.Header;
-
-import im.ene.lab.library.qiita4j.QiitaClient;
+import im.ene.lab.kiita.R;
 import im.ene.lab.library.utils.QiitaUtils;
 
 
@@ -24,8 +17,12 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (QiitaUtils.getToken(this) == null) {
+        if (QiitaUtils.getToken(this) != null) {
             Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            Intent intent = new Intent(this, TimeLineActivity.class);
             startActivity(intent);
             finish();
         }

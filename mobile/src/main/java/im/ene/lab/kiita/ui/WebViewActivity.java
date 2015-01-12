@@ -1,4 +1,4 @@
-package im.ene.lab.kiita;
+package im.ene.lab.kiita.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import im.ene.lab.kiita.R;
 
 /**
  * Created by eneim on 1/12/15.

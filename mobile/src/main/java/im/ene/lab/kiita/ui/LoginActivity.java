@@ -1,4 +1,4 @@
-package im.ene.lab.kiita;
+package im.ene.lab.kiita.ui;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import im.ene.lab.kiita.R;
 import im.ene.lab.library.qiita4j.QiitaClient;
 
 /**
@@ -20,22 +21,6 @@ public class LoginActivity extends ActionBarActivity {
     private QiitaClient mClient;
 
     private Button mBtnLoginGithub, mBtnLoginTwitter;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_login);
-
-        mBtnLoginGithub = (Button) findViewById(R.id.button_login_github);
-        mBtnLoginTwitter = (Button) findViewById(R.id.button_login_twitter);
-
-        mBtnLoginGithub.setOnClickListener(onLoginClickListener);
-        mBtnLoginTwitter.setOnClickListener(onLoginClickListener);
-
-        mClient = new QiitaClient(this);
-    }
-
     private View.OnClickListener onLoginClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -55,17 +40,38 @@ public class LoginActivity extends ActionBarActivity {
     };
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_login);
+
+        mBtnLoginGithub = (Button) findViewById(R.id.button_login_github);
+        mBtnLoginTwitter = (Button) findViewById(R.id.button_login_twitter);
+
+        mBtnLoginGithub.setOnClickListener(onLoginClickListener);
+        mBtnLoginTwitter.setOnClickListener(onLoginClickListener);
+
+        mClient = new QiitaClient(this);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode != 1)
+        if (requestCode != 1) {
+            update(false);
             return;
+        }
 
         if (resultCode == Activity.RESULT_OK && data != null) {
             String callback = data.getStringExtra("callback");
 
             Log.d("callback", callback + "");
         }
+    }
+
+    private void update(boolean isLoggedIn) {
+
     }
 
     @Override
