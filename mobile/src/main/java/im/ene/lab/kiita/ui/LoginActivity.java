@@ -23,6 +23,7 @@ import im.ene.lab.kiita.R;
 import im.ene.lab.library.qiita4j.QiitaClient;
 import im.ene.lab.library.qiita4j.models.response.AccessTokenResponse;
 import im.ene.lab.library.utils.JsonUtils;
+import im.ene.lab.library.utils.QiitaUtils;
 
 /**
  * Created by eneim on 1/12/15.
@@ -33,9 +34,8 @@ public class LoginActivity extends ActionBarActivity {
 
     public static final int LOGIN_REQUEST_CODE = 1024;
 
-    private QiitaClient mClient;
-
     private String mCode = null, mToken = null;
+    private AccessTokenResponse mAccessToken = null;
 
     private Button mBtnLoginGithub, mBtnLoginTwitter;
     private View.OnClickListener onLoginClickListener = new View.OnClickListener() {
@@ -68,7 +68,6 @@ public class LoginActivity extends ActionBarActivity {
         mBtnLoginGithub.setOnClickListener(onLoginClickListener);
         mBtnLoginTwitter.setOnClickListener(onLoginClickListener);
 
-        mClient = new QiitaClient();
     }
 
     @Override
@@ -111,13 +110,14 @@ public class LoginActivity extends ActionBarActivity {
         }
 
         if (mCode != null) {
-            mClient.requestToken(this, mCode, new BaseJsonHttpResponseHandler() {
+            QiitaClient.requestToken(this, mCode, new BaseJsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, String rawJsonResponse, Object response) {
                     Log.d(TAG, "response: " + rawJsonResponse);
-
                     // handle the response here
-                    AccessTokenResponse response = JsonUtils.GSON.fromJson(rawJsonResponse, AccessTokenResponse.class);
+                    mAccessToken =
+                            JsonUtils.GSON.fromJson(rawJsonResponse, AccessTokenResponse.class);
+                    update(true);
                 }
 
                 @Override
@@ -134,13 +134,21 @@ public class LoginActivity extends ActionBarActivity {
     }
 
     private void update(boolean isLoggedIn) {
+        if (!isLoggedIn || mAccessToken == null) {
+            // TODO logging in failed
+            // do something
+            return;
+        }
 
+        // TODO use token to request
+        QiitaUtils.saveToken(this, mAccessToken.token);
+        Intent intent = new Intent(this, TimeLineActivity.class);
+        startActivity(intent);
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-
         Log.d("intent", intent + "");
     }
 

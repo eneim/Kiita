@@ -17,17 +17,21 @@ public class QiitaClient {
 
     public static final int LOGIN_TWITTER = 2;
 
-    private final QiitaExecutorImpl mExecutor;
+    private static final QiitaExecutorImpl mExecutor = new QiitaExecutorImpl();
 
     public QiitaClient() {
-        this.mExecutor = new QiitaExecutorImpl();
+
     }
 
-    public void requestToken(Context context, String code, BaseJsonHttpResponseHandler handler) {
-        this.mExecutor.requestToken(context, code, handler);
+    public static void requestToken(Context context, String code, BaseJsonHttpResponseHandler handler) {
+        mExecutor.requestToken(context, code, handler);
     }
 
-    public void authorize(Context context, AsyncHttpResponseHandler handler) {
-        this.mExecutor.authorize(context, handler);
+    public static void authorize(Context context, AsyncHttpResponseHandler handler) {
+        mExecutor.authorize(context, handler);
+    }
+
+    public static void getAuthenticatedUser(Context context, BaseJsonHttpResponseHandler handler) {
+        mExecutor.getAuthenticatedUser(context, handler);
     }
 }

@@ -22,7 +22,7 @@ public class Item {
 
     public String rendered_body;
 
-    public List<String> tags;
+    public List<Tag> tags;
 
     public String title;
 

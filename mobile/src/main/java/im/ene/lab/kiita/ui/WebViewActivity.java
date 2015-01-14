@@ -53,8 +53,9 @@ public class WebViewActivity extends ActionBarActivity {
                 setResult(RESULT_OK, result);
                 finishActivity();
                 return true;
-            } else
+            } else {
                 return super.shouldOverrideUrlLoading(view, url);
+            }
         }
     };
 

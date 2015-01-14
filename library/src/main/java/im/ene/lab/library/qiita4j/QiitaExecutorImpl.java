@@ -1,20 +1,22 @@
 package im.ene.lab.library.qiita4j;
 
-import android.app.DownloadManager;
 import android.content.Context;
+import android.preference.PreferenceActivity;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.BaseJsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.loopj.android.http.TextHttpResponseHandler;
 
+import org.apache.http.Header;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.message.BasicHeader;
 
 import java.io.UnsupportedEncodingException;
 
 import im.ene.lab.library.R;
 import im.ene.lab.library.qiita4j.models.request.AccessTokenRequest;
+import im.ene.lab.library.utils.QiitaUtils;
 
 /**
  * Created by eneim on 1/11/15.
@@ -70,5 +72,11 @@ public class QiitaExecutorImpl implements QiitaExecutor {
 
         se.setContentType("application/json");
         this.client.post(context, Endpoints.requestTokenEndpoint(), se, null, handler);
+    }
+
+    public void getAuthenticatedUser(Context context, BaseJsonHttpResponseHandler handler) {
+        Header[] headers = new Header[1];
+        headers[0] = new BasicHeader("Authorization", "Bearer " + QiitaUtils.getToken(context));
+        this.client.get(context, Endpoints.authUserEndpoint(), headers, null, handler);
     }
 }

@@ -24,7 +24,12 @@ public final class Endpoints {
      *
      * request: GET /api/v2/oauth/authorize
      */
-    public static final String AUTHORIZE = API + "/oauth/authorize";
+    private static final String AUTHORIZE = API + "/oauth/authorize";
+
+    /**
+     * authienticated user
+     */
+    private static final String AUTH_USER = API + "/authenticated_user";
 
     /**
      * endpoint: access_token
@@ -33,7 +38,7 @@ public final class Endpoints {
      *
      * delete token: DELETE /api/v2/access_tokens/:token
      */
-    public static final String ACCESS_TOKEN = API + "/access_tokens";
+    private static final String ACCESS_TOKEN = API + "/access_tokens";
 
     /**
      * endpoint: comments
@@ -44,7 +49,7 @@ public final class Endpoints {
      *
      * patch comment: PATCH /api/v2/comments/:id
      */
-    public static final String COMMENTS = API + "/comments";
+    private static final String COMMENTS = API + "/comments";
 
     /**
      *  login helper
@@ -73,4 +78,11 @@ public final class Endpoints {
         Log.d("endpoint", endpoint + "");
         return endpoint;
     }
+
+    public static String authUserEndpoint() {
+        String endpoint = QIITA + AUTH_USER;
+        Log.d("endpoint", endpoint + "");
+        return endpoint;
+    }
+
 }
