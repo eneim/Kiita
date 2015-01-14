@@ -1,7 +1,6 @@
 package im.ene.lab.library.qiita4j;
 
 import android.content.Context;
-import android.preference.PreferenceActivity;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -67,10 +66,8 @@ public class QiitaExecutorImpl implements QiitaExecutor {
             return;
         }
 
-        if (se == null)
-            return;
-
-        se.setContentType("application/json");
+        if (se != null)
+            se.setContentType("application/json");
         this.client.post(context, Endpoints.requestTokenEndpoint(), se, null, handler);
     }
 
