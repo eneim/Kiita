@@ -3,6 +3,7 @@
 
     <string name="kiita_client_id">bfd0c62e1d881bf1eff108554cbc3cbb389bad6f</string>
     <string name="kiita_client_secret">f2c8b222d0d77238e5ad7132a52ca4127c62a85a</string>
+    <string name="kiita_scope">read_qiita+write_qiita</string>
     <string name="kiita_state">299792458</string>
 
     <!-- end poinst -->

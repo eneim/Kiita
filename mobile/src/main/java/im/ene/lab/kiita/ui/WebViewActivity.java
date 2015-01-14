@@ -7,14 +7,13 @@ import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.TextHttpResponseHandler;
-
-import org.apache.http.Header;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
 
 import im.ene.lab.kiita.R;
 import im.ene.lab.library.qiita4j.Endpoints;
-import im.ene.lab.library.qiita4j.QiitaClient;
 
 /**
  * Created by eneim on 1/12/15.
@@ -33,6 +32,15 @@ public class WebViewActivity extends ActionBarActivity {
 
         mWebView.setWebViewClient(mWebClient);
         mWebView.loadUrl(Endpoints.AUTH_ENDPOINT);
+    }
+
+    private String getStringFromInputStream(InputStream stream) throws IOException {
+        int n = 0;
+        char[] buffer = new char[1024 * 4];
+        InputStreamReader reader = new InputStreamReader(stream, "UTF8");
+        StringWriter writer = new StringWriter();
+        while (-1 != (n = reader.read(buffer))) writer.write(buffer, 0, n);
+        return writer.toString();
     }
 
     private WebViewClient mWebClient = new WebViewClient() {
