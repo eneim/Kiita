@@ -23,7 +23,7 @@ android {
 
     defaultConfig {
         applicationId "im.ene.lab.kiita"
-        minSdkVersion 17
+        minSdkVersion 10
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"

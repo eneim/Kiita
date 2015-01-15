@@ -53,7 +53,7 @@ public class TimeLineActivity extends ActionBarActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-
+        // TODO
     }
 
     public void onSectionAttached(int number) {

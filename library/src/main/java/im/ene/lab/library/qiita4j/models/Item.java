@@ -22,7 +22,7 @@ public class Item {
 
     public String rendered_body;
 
-    public List<Tag> tags;
+    public List<Item.Tag> tags;
 
     public String title;
 
@@ -32,4 +32,12 @@ public class Item {
 
     public User user;
 
+    public class Tag {
+
+        public String icon_url;
+
+        public String name;
+
+        public List<String> versions;
+    }
 }

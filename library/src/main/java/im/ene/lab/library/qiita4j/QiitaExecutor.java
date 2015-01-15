@@ -90,11 +90,11 @@ public interface QiitaExecutor {
     /**
      * methods
      */
-    public void getItems(BaseJsonHttpResponseHandler handler);
+    public void getItems(Context context, BaseJsonHttpResponseHandler handler);
 
-    public void getItems(int per_page, BaseJsonHttpResponseHandler handler);
+    public void getItems(Context context, int per_page, BaseJsonHttpResponseHandler handler);
 
-    public void getItems(int page, int per_page, BaseJsonHttpResponseHandler handler);
+    public void getItems(Context context, int page, int per_page, BaseJsonHttpResponseHandler handler);
 
     /**
      * get user info
@@ -104,4 +104,6 @@ public interface QiitaExecutor {
     public void authorize(Context context, AsyncHttpResponseHandler handler);
 
     public void requestToken(Context context, String code, BaseJsonHttpResponseHandler handler);
+
+    void getAuthenticatedUser(Context context, BaseJsonHttpResponseHandler handler);
 }

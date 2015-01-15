@@ -42,16 +42,7 @@ public class LoginActivity extends ActionBarActivity {
         @Override
         public void onClick(View v) {
 
-            int loginType = QiitaClient.LOGIN_NORMAL;
-
-            if (v == mBtnLoginGithub) {
-                loginType = QiitaClient.LOGIN_GITHUB;
-            } else if (v == mBtnLoginTwitter) {
-                loginType = QiitaClient.LOGIN_TWITTER;
-            }
-
             Intent intent = new Intent(LoginActivity.this, WebViewActivity.class);
-            intent.putExtra("login_type", loginType);
             startActivityForResult(intent, LOGIN_REQUEST_CODE);
         }
     };
@@ -81,7 +72,7 @@ public class LoginActivity extends ActionBarActivity {
 
         if (requestCode != LOGIN_REQUEST_CODE) {
             update(false);
-            return;
+            finish();
         }
 
         if (data != null) {

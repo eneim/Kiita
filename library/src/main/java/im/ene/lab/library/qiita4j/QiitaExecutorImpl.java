@@ -25,18 +25,19 @@ public class QiitaExecutorImpl implements QiitaExecutor {
     private final AsyncHttpClient client = new AsyncHttpClient();
 
     @Override
-    public void getItems(BaseJsonHttpResponseHandler handler) {
-        getItems(default_per_page, handler);
+    public void getItems(Context context, BaseJsonHttpResponseHandler handler) {
+        getItems(context, default_per_page, handler);
     }
 
     @Override
-    public void getItems(int per_page, BaseJsonHttpResponseHandler handler) {
-        getItems(default_page, per_page, handler);
+    public void getItems(Context context, int per_page, BaseJsonHttpResponseHandler handler) {
+        getItems(contextm default_page, per_page, handler);
     }
 
     @Override
-    public void getItems(int page, int per_page, BaseJsonHttpResponseHandler handler) {
+    public void getItems(Context context, int page, int per_page, BaseJsonHttpResponseHandler handler) {
         if (per_page > max_per_page) per_page = max_per_page;
+        // TODO
     }
 
     @Override
@@ -58,19 +59,20 @@ public class QiitaExecutorImpl implements QiitaExecutor {
     public void requestToken(Context context, String code, BaseJsonHttpResponseHandler handler) {
         AccessTokenRequest request = new AccessTokenRequest(context.getString(R.string.kiita_client_id), context.getString(R.string.kiita_client_secret), code);
 
-        StringEntity se = null;
+        StringEntity se;
         try {
             se = new StringEntity(request.toString());
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return;
         }
-
         if (se != null)
             se.setContentType("application/json");
+
         this.client.post(context, Endpoints.requestTokenEndpoint(), se, null, handler);
     }
 
+    @Override
     public void getAuthenticatedUser(Context context, BaseJsonHttpResponseHandler handler) {
         Header[] headers = new Header[1];
         headers[0] = new BasicHeader("Authorization", "Bearer " + QiitaUtils.getToken(context));
